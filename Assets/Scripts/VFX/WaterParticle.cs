@@ -2,21 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ParticleSystem))]
-public class SeedParticle : MonoBehaviour
+public class WaterParticle : MonoBehaviour
 {
-    public static Action<Vector3[]> onSeedCollision;
-
-    private static SeedParticle instance;
-    public static SeedParticle Instance { get => instance; }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-    }
+    public static Action<Vector3[]> onWaterCollision;
 
     private void OnParticleCollision(GameObject other)
     {
@@ -32,6 +20,6 @@ public class SeedParticle : MonoBehaviour
             collisionPosition[i] = collisionEvents[i].intersection;
         }
 
-        onSeedCollision?.Invoke(collisionPosition);
+        onWaterCollision?.Invoke(collisionPosition);
     }
 }

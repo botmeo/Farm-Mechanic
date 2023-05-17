@@ -4,20 +4,10 @@ public class PlayerAnimations : MonoBehaviour
 {
     [Header("Elements")]
     [SerializeField] private Animator animator;
+    [SerializeField] private ParticleSystem waterParticles;
 
     [Header("Settings")]
     [SerializeField] private float moveSpeedMultiplier;
-
-    private static PlayerAnimations instance;
-    public static PlayerAnimations Instance { get => instance; }
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-    }
 
     private void Start()
     {
@@ -61,4 +51,20 @@ public class PlayerAnimations : MonoBehaviour
     }
 
     #endregion
+
+    #region Watering
+
+    public void PlayWateringAnimation()
+    {
+        animator.SetLayerWeight(2, 1);
+    }
+
+    public void StopWateringAnimation()
+    {
+        animator.SetLayerWeight(2, 0);
+        waterParticles.Stop();
+    }
+
+    #endregion
+
 }

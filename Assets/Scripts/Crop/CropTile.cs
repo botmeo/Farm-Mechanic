@@ -1,16 +1,17 @@
 using UnityEngine;
 
+public enum TileFieldState { Empty, Sown, Watered }
+
 public class CropTile : MonoBehaviour
 {
-    public enum State { Empty, Sown, Watered }
-    private State state;
+    private TileFieldState state;
 
     [Header("Elements")]
     [SerializeField] private Transform cropParent;
 
     private void Start()
     {
-        state = State.Empty;
+        state = TileFieldState.Empty;
     }
 
     private void Update()
@@ -20,13 +21,22 @@ public class CropTile : MonoBehaviour
 
     public bool IsEmpty()
     {
-        return state == State.Empty;
+        return state == TileFieldState.Empty;
+    }
+
+    public bool IsSown()
+    {
+        return state == TileFieldState.Sown;
     }
 
     public void Sow(CropData cropData)
     {
-        state = State.Sown;
+        state = TileFieldState.Sown;
         Crop crop = Instantiate(cropData.cropPrefab, transform.position, Quaternion.identity, cropParent);
+    }
 
+    public void Water()
+    {
+        state = TileFieldState.Watered;
     }
 }
